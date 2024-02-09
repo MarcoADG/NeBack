@@ -62,16 +62,6 @@ public class UsuarioController {
         }
     }
 
-    /*@PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UsuarioRequestDTO requestDTO) {
-        try {
-            String token = usuarioService.login(requestDTO.getLogin(), requestDTO.getSenha());
-            return ResponseEntity.ok(token);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        }
-    }*/
-
     @PutMapping("/{usuarioId}")
     public ResponseEntity<?> atualizarUsuario(@PathVariable Integer usuarioId, @RequestBody UsuarioRequestDTO requestDTO) {
         try {

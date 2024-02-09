@@ -13,48 +13,30 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	BCryptPasswordEncoder encoder;
 
 	public List<Usuario> buscarTodosUsuarios() {
-        return usuarioRepository.findAll();
-    }
-    
-    public Usuario buscarPorId(Integer usuarioId) {
-        return usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-    }
-	
-    public Usuario cadastrarUsuario(Usuario usuario) {
-        // Verifica se o usuário existe
-        Usuario usuarioExistente = usuarioRepository.findByLogin(usuario.getLogin());
-        if (usuarioExistente != null) {
-            throw new RuntimeException("Usuário já existe");
-        }
+		return usuarioRepository.findAll();
+	}
 
-        // Salva o usuário na base de dados
-        usuario.setLogin(usuario.getLogin());
-        usuario.setSenha(encoder.encode(usuario.getSenha()));
-        return usuarioRepository.save(usuario);
-    }
+	public Usuario buscarPorId(Integer usuarioId) {
+		return usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+	}
 
-    //metodo que tinha antes de adicionar jwt
-    /*public String login(String login, String senha) {
-         Verifica se o usuário existe
-        Usuario usuario = usuarioRepository.findByLogin(login);
-        if (usuario == null) {
-            throw new RuntimeException("Usuário não encontrado");
-        }
-         Verifica se a senha fornecida corresponde à senha armazenada
-        if (!passwordEncoder.matches(senha, usuario.getSenha())) {
-            throw new RuntimeException("Credenciais inválidas");
-        }
+	public Usuario cadastrarUsuario(Usuario usuario) {
+		// Verifica se o usuário existe
+		Usuario usuarioExistente = usuarioRepository.findByLogin(usuario.getLogin());
+		if (usuarioExistente != null) {
+			throw new RuntimeException("Usuário já existe");
+		}
 
-         Se as credenciais estiverem corretas, você pode gerar um token JWT ou
-         simplesmente retornar uma mensagem de sucesso
-        return "Login bem-sucedido";
-    }*/
+		// Salva o usuário na base de dados
+		usuario.setLogin(usuario.getLogin());
+		usuario.setSenha(encoder.encode(usuario.getSenha()));
+		return usuarioRepository.save(usuario);
+	}
 
 	public Usuario atualizarUsuario(Integer usuarioId, String novoLogin, String novaSenha) {
 		// Busca o usuário pelo ID fornecido
