@@ -17,7 +17,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.neki.controllers"))
+                .apis(RequestHandlerSelectors.basePackage("br.com.apineki.controllers"))
                 .paths(PathSelectors.any())
                 .build();
     }
